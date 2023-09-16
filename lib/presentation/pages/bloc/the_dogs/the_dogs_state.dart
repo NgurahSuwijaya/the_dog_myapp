@@ -29,8 +29,19 @@ class TheDogsError extends TheDogsState {
   List<Object> get props => [message];
 }
 
+class TheDogsInsertSuccess extends TheDogsState {
+  String message;
+
+  TheDogsInsertSuccess({
+    required this.message,
+  });
+
+  @override
+  List<Object> get props => [message];
+}
+
 class TheDogsHasData extends TheDogsState {
-  final List<TheDog> result;
+  final List<TheDogLocal> result;
 
   TheDogsHasData(this.result);
 

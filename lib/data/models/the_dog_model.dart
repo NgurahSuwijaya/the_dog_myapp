@@ -41,6 +41,24 @@ class TheDogModel extends Equatable {
         "height": height,
       };
 
+  factory TheDogModel.fromEntity(TheDog? dog) => TheDogModel(
+        breeds: dog?.breeds
+            ?.map((breed) => BreedModel(
+                  id: breed.id,
+                  name: breed.name,
+                  bredFor: breed.bredFor,
+                  breedGroup: breed.breedGroup,
+                  lifeSpan: breed.lifeSpan,
+                  temperament: breed.temperament,
+                  referenceImageId: breed.referenceImageId,
+                ))
+            .toList(),
+        id: dog?.id,
+        url: dog?.url,
+        width: dog?.width,
+        height: dog?.height,
+      );
+
   TheDog toEntity() {
     return TheDog(
         breeds: breeds?.map((e) => e.toEntity()).toList(),

@@ -24,6 +24,20 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("The Dog My App"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              // Add your search functionality here
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.favorite),
+            onPressed: () {
+              // Add your favorite functionality here
+            },
+          ),
+        ],
       ),
       body: BlocBuilder<TheDogsBloc, TheDogsState>(builder: (context, state) {
         if (state is TheDogsLoading) {
@@ -31,15 +45,18 @@ class _HomePageState extends State<HomePage> {
             child: CircularProgressIndicator(),
           );
         } else if (state is TheDogsEmpty) {
-          return const Text("Data is empty");
+          return const Center(child: Text("Data is empty"));
         } else if (state is TheDogsError) {
-          return Text(state.message);
+          return Center(child: Text(state.message));
         } else if (state is TheDogsHasData) {
-          return ListView.builder(
-              itemCount: state.result.length,
-              itemBuilder: (context, index) {
-                return DogCard(dog: state.result[index]);
-              });
+          return GridView.builder(
+            itemCount: state.result.length,
+            itemBuilder: (context, index) {
+              return DogCard(dog: state.result[index]);
+            },
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, childAspectRatio: 0.7),
+          );
         } else {
           return const Text("Failed");
         }

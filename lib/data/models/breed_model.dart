@@ -5,8 +5,6 @@ import 'package:the_dog_myapp/data/models/eight_model.dart';
 import 'package:the_dog_myapp/domain/entities/breed.dart';
 
 class BreedModel extends Equatable {
-  final EightModel? weight;
-  final EightModel? height;
   final int? id;
   final String? name;
   final String? bredFor;
@@ -16,8 +14,6 @@ class BreedModel extends Equatable {
   final String? referenceImageId;
 
   BreedModel({
-    this.weight,
-    this.height,
     this.id,
     this.name,
     this.bredFor,
@@ -28,10 +24,6 @@ class BreedModel extends Equatable {
   });
 
   factory BreedModel.fromJson(Map<String, dynamic> json) => BreedModel(
-        weight:
-            json["weight"] == null ? null : EightModel.fromJson(json["weight"]),
-        height:
-            json["height"] == null ? null : EightModel.fromJson(json["height"]),
         id: json["id"],
         name: json["name"],
         bredFor: json["bred_for"],
@@ -42,8 +34,6 @@ class BreedModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() => {
-        "weight": weight?.toJson(),
-        "height": height?.toJson(),
         "id": id,
         "name": name,
         "bred_for": bredFor,
@@ -55,8 +45,6 @@ class BreedModel extends Equatable {
 
   Breed toEntity() {
     return Breed(
-        weight: weight?.toEntity(),
-        height: height?.toEntity(),
         id: id,
         name: name,
         bredFor: bredFor,
@@ -69,8 +57,6 @@ class BreedModel extends Equatable {
   @override
   List<Object?> get props {
     return [
-      weight,
-      height,
       id,
       name,
       bredFor,

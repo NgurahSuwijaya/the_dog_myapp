@@ -4,8 +4,6 @@ import 'package:equatable/equatable.dart';
 import 'eight.dart';
 
 class Breed extends Equatable {
-  final Eight? weight;
-  final Eight? height;
   final int? id;
   final String? name;
   final String? bredFor;
@@ -15,22 +13,18 @@ class Breed extends Equatable {
   final String? referenceImageId;
 
   Breed({
-    required this.weight,
-    required this.height,
-    required this.id,
-    required this.name,
-    required this.bredFor,
-    required this.breedGroup,
-    required this.lifeSpan,
-    required this.temperament,
-    required this.referenceImageId,
+    this.id,
+    this.name,
+    this.bredFor,
+    this.breedGroup,
+    this.lifeSpan,
+    this.temperament,
+    this.referenceImageId,
   });
 
   @override
   List<Object?> get props {
     return [
-      weight,
-      height,
       id,
       name,
       bredFor,

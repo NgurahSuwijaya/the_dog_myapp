@@ -7,8 +7,8 @@ class TheDog extends Equatable {
   final List<Breed>? breeds;
   final String? id;
   final String? url;
-  final int? width;
-  final int? height;
+  int? width;
+  int? height;
 
   TheDog(
       {required this.breeds,
