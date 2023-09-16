@@ -20,7 +20,7 @@ class TheDogRemoteDataSourceImpl implements TheDogRemoteDataSource {
   @override
   Future<List<TheDogModel>> getTheDogs() async {
     final response = await client.get(Uri.parse(
-        '$baseURL/v1/images/search?size=full&page=0&limit=10&has_breeds=true&include_breeds=true?$apiKey'));
+        '$baseURL/v1/images/search?size=full&page=0&limit=10&has_breeds=true&include_breeds=true$apiKey'));
     if (response.statusCode == 200) {
       print(response.body);
       List<dynamic> data = json.decode(response.body);
