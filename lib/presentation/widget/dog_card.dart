@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:the_dog_myapp/data/models/the_dog_local.dart';
 
+import '../pages/home/the_dog_detail_page.dart';
+
 class DogCard extends StatelessWidget {
   final TheDogLocal dog;
 
@@ -9,7 +11,10 @@ class DogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, TheDogDetailPage.ROUTE_NAME,
+            arguments: dog.dogId);
+      },
       child: Card(
         child: Column(
           children: [

@@ -32,6 +32,8 @@ class TheDogsBloc extends Bloc<TheDogsEvent, TheDogsState> {
             add(OnInsertTheDogsEvent(dogs: r));
             _apiDataFetched = true;
             add(OnGetLocalTheDogsEvent());
+          } else {
+            emit(TheDogsEmpty());
           }
         });
       } else {

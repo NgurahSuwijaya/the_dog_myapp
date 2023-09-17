@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_dog_myapp/presentation/pages/bloc/the_dogs/the_dogs_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_dog_myapp/presentation/pages/home/fav_dog_page.dart';
 import 'package:the_dog_myapp/presentation/widget/dog_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon: Icon(Icons.favorite),
             onPressed: () {
-              // Add your favorite functionality here
+              Navigator.pushNamed(context, FavDogPage.ROUTE_NAME);
             },
           ),
         ],

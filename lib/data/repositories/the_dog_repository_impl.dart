@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:the_dog_myapp/data/datasources/dog_local_data_source.dart';
 import 'package:the_dog_myapp/data/models/the_dog_local.dart';
+import 'package:the_dog_myapp/domain/entities/favourite.dart';
+import 'package:the_dog_myapp/domain/entities/response.dart';
 import 'package:the_dog_myapp/domain/entities/the_dog.dart';
 import 'package:the_dog_myapp/common/failure.dart';
 import 'package:dartz/dartz.dart';
@@ -63,6 +65,34 @@ class TheDogRepositoryImpl implements TheDogRepository {
     try {
       final result = await remoteDataSource.getTheDogDetail(id);
       return Right(result.toEntity());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    } catch (e) {
+      return Left(CommonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Response>> postTheDogFav(String id) async {
+    try {
+      final result = await remoteDataSource.postTheDogFav(id);
+      return Right(result.toEntity());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    } catch (e) {
+      return Left(CommonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Favourite>>> getDogFav() async {
+    try {
+      final result = await remoteDataSource.getTheDogFav();
+      return Right(result.map((e) => e.toEntity()).toList());
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
