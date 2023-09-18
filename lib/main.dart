@@ -7,7 +7,9 @@ import 'package:the_dog_myapp/presentation/pages/bloc/the_dog_detail/the_dog_det
 import 'package:the_dog_myapp/presentation/pages/bloc/the_dogs/the_dogs_bloc.dart';
 import 'package:the_dog_myapp/presentation/pages/home/fav_dog_page.dart';
 import 'package:the_dog_myapp/presentation/pages/home/home_page.dart';
+import 'package:the_dog_myapp/presentation/pages/home/search_dog_page.dart';
 
+import 'presentation/pages/bloc/search_dog/search_dog_bloc.dart';
 import 'presentation/pages/bloc/the_dog_fav/the_dog_fav_bloc.dart';
 import 'presentation/pages/home/the_dog_detail_page.dart';
 
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (_) => di.locator<TheDogsBloc>()),
           BlocProvider(create: (_) => di.locator<TheDogDetailBloc>()),
           BlocProvider(create: (_) => di.locator<TheDogFavBloc>()),
+          BlocProvider(create: (_) => di.locator<SearchDogBloc>()),
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
@@ -45,6 +48,8 @@ class MyApp extends StatelessWidget {
                     builder: (_) => TheDogDetailPage(id: id));
               case FavDogPage.ROUTE_NAME:
                 return MaterialPageRoute(builder: (_) => const FavDogPage());
+              case SearchDogPage.ROUTE_NAME:
+                return MaterialPageRoute(builder: (_) => const SearchDogPage());
               default:
                 return MaterialPageRoute(builder: (_) {
                   return const Scaffold(

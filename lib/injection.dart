@@ -7,6 +7,8 @@ import 'package:the_dog_myapp/domain/usecases/get_the_dogs_usecase.dart';
 import 'package:the_dog_myapp/domain/usecases/get_the_local_dogs_usecase.dart';
 import 'package:the_dog_myapp/domain/usecases/insert_the_dog_usecase.dart';
 import 'package:the_dog_myapp/domain/usecases/post_the_dog_fav_usecase.dart';
+import 'package:the_dog_myapp/domain/usecases/search_dog_usecase.dart';
+import 'package:the_dog_myapp/presentation/pages/bloc/search_dog/search_dog_bloc.dart';
 import 'package:the_dog_myapp/presentation/pages/bloc/the_dog_detail/the_dog_detail_bloc.dart';
 import 'data/datasources/database/database_helper.dart';
 import 'data/datasources/dog_local_data_source.dart';
@@ -24,6 +26,7 @@ void init() {
   locator.registerFactory(() => TheDogsBloc(locator(), locator(), locator()));
   locator.registerFactory(() => TheDogDetailBloc(locator()));
   locator.registerFactory(() => TheDogFavBloc(locator(), locator()));
+  locator.registerFactory(() => SearchDogBloc(locator()));
 
   //usecase
   locator.registerLazySingleton(() => GetTheDogUseCase(locator()));
@@ -32,6 +35,7 @@ void init() {
   locator.registerLazySingleton(() => GetTheDogDetailUsecase(locator()));
   locator.registerLazySingleton(() => PostTheDogFavUseCase(locator()));
   locator.registerLazySingleton(() => GetTheDogFavUseCase(locator()));
+  locator.registerLazySingleton(() => SearchTheDogUseCase(locator()));
 
   //repository
   locator.registerLazySingleton<TheDogRepository>(() => TheDogRepositoryImpl(

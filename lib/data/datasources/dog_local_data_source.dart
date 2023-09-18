@@ -6,6 +6,7 @@ import 'database/database_helper.dart';
 abstract class TheDogLocalDataSource {
   Future<String> insertTheDogList(List<TheDogModel> theDogModel);
   Future<List<TheDogLocal>> getTheDogLocalList();
+  Future<List<TheDogLocal>> searchDogbyName(String name);
 }
 
 class TheDogLocalDataSourceImpl implements TheDogLocalDataSource {
@@ -28,6 +29,16 @@ class TheDogLocalDataSourceImpl implements TheDogLocalDataSource {
   Future<List<TheDogLocal>> getTheDogLocalList() async {
     try {
       final result = await databaseHelper.getLocalTheDogs();
+      return result.map((e) => TheDogLocal.fromMap(e)).toList();
+    } catch (e) {
+      throw DatabaseException(e.toString());
+    }
+  }
+
+  @override
+  Future<List<TheDogLocal>> searchDogbyName(String name) async {
+    try {
+      final result = await databaseHelper.searchDogByName(name);
       return result.map((e) => TheDogLocal.fromMap(e)).toList();
     } catch (e) {
       throw DatabaseException(e.toString());

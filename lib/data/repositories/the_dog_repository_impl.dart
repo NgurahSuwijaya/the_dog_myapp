@@ -41,7 +41,6 @@ class TheDogRepositoryImpl implements TheDogRepository {
           (dogs.map((e) => TheDogModel.fromEntity(e)).toList()));
       return const Right('Insert operation completed');
     } on DatabaseException catch (e) {
-      // print(dogs.map((e) => TheDogModel.fromEntity(e)).toList());
       return Left(DatabaseFailure(e.message));
     } catch (e) {
       return Left(CommonFailure(e.toString()));
@@ -97,6 +96,19 @@ class TheDogRepositoryImpl implements TheDogRepository {
       return Left(ServerFailure(''));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
+    } catch (e) {
+      return Left(CommonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TheDogLocal>>> searchDogbyName(
+      String name) async {
+    try {
+      final result = await localDataSource.searchDogbyName(name);
+      return Right(result);
+    } on DatabaseException catch (e) {
+      return Left(DatabaseFailure(e.message));
     } catch (e) {
       return Left(CommonFailure(e.toString()));
     }
