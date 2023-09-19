@@ -12,4 +12,5 @@ abstract class TheDogRepository {
   Future<Either<Failure, TheDog>> getTheDogDetail(String id);
   Future<Either<Failure, Response>> postTheDogFav(String id);
   Future<Either<Failure, List<Favourite>>> getDogFav();
+  Future<Either<Failure, List<TheDogLocal>>> searchDogbyName(String name);
 }

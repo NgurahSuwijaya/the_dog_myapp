@@ -7,23 +7,33 @@ import 'package:rxdart/rxdart.dart';
 part "search_dog_event.dart";
 part "search_dog_state.dart";
 
-class SearchMovieBloc extends Bloc<SearchDogEvent, SearchDogState> {
+class SearchDogBloc extends Bloc<SearchDogEvent, SearchDogState> {
   final SearchTheDogUseCase _searchTheDogUseCase;
 
   EventTransformer<Time> debounce<Time>(Duration duration) {
     return ((events, mapper) => events.debounceTime(duration).flatMap(mapper));
   }
 
-  SearchMovieBloc(this._searchTheDogUseCase) : super(SearchDogEmpty()) {
+  SearchDogBloc(this._searchTheDogUseCase) : super(SearchDogEmpty()) {
     on<OnDogQueryChanged>((event, emit) async {
       final query = event.query;
 
-      emit(SearchDogLoading());
+      if (query.isNotEmpty) {
+        emit(SearchDogLoading());
 
-      final result = await _searchTheDogUseCase.execute(query);
+        final result = await _searchTheDogUseCase.execute(query);
 
-      result.fold((l) => emit(SearchDogError(l.message)),
-          (r) => emit(SearchDogHasData(r)));
+        result.fold(
+            (l) => emit(SearchDogError(l.message)),
+            (r) => {
+                  if (r.isNotEmpty)
+                    {emit(SearchDogHasData(r))}
+                  else
+                    {emit(SearchDogEmpty())}
+                });
+      } else {
+        emit(SearchDogEmpty());
+      }
     }, transformer: debounce(const Duration(milliseconds: 500)));
   }
 }

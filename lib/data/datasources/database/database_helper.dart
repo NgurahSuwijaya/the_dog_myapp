@@ -64,4 +64,15 @@ class DatabaseHelper {
 
     return results;
   }
+
+  Future<List<Map<String, dynamic>>> searchDogByName(String name) async {
+    final db = await database;
+    final List<Map<String, dynamic>> results = await db!.query(
+      _tableDogList,
+      where: 'name LIKE ?',
+      whereArgs: ['%$name%'],
+    );
+
+    return results;
+  }
 }
